@@ -1,25 +1,40 @@
-# 🏃 FitnessTrackerApp — Фитнес-трекер
+# 🏃 Fitness Tracker
 
-Приложение для отслеживания тренировок с графиками активности.
+Приложение для отслеживания тренировок: шаги, калории, длительность и дистанция.
 
-## 📱 Screenshots
-*(Скриншоты будут добавлены — запусти эмулятор в Android Studio)*
+Есть две версии:
 
-## 🛠 Tech Stack
-- **Kotlin** + Coroutines
-- **MVVM** Architecture
-- **Room** Database (тренировки)
-- **MPAndroidChart** (графики)
-- **LiveData** + **ViewBinding**
-- **Sensor API** (шагомер)
+| Версия | Стек | Платформа | Статус |
+| --- | --- | --- | --- |
+| **v2.0** | Flutter (Dart), Clean Architecture + BLoC + Hive + Dio | Android + iOS | актуальная (в `flutter/`) |
+| **v1.0** | Kotlin + Coroutines, MVVM, Room | Android | legacy (в корне) |
 
-## 📁 Project Structure
+## v2.0 — Flutter (в `flutter/`)
+
+Кроссплатформенная переработка с продовой архитектурой:
+
+- **Clean Architecture**: `domain/` (entities, use cases, интерфейсы репозиториев) → `data/` (Hive + Dio) → `presentation/` (BLoC/Cubit + виджеты).
+- **State management**: `flutter_bloc` (Cubit) — без `setState` для бизнес-логики.
+- **DI**: `get_it`.
+- **Локальная БД**: `hive` (ручной `TypeAdapter`).
+- **Сетевой слой**: `dio` + абстрактный `RemoteWorkoutApi` (мок готов к замене на реальный бэкенд).
+- **Качество**: `flutter analyze` → 0 issues, `flutter test` — unit-тесты (domain/data/presentation).
+
+```bash
+cd flutter
+flutter pub get
+flutter run
+flutter analyze   # 0 issues
+flutter test      # все тесты зелёные
 ```
-app/src/main/java/com/example/fitness/
-├── data/   — WorkoutDao, AppDatabase, WorkoutRepository
-├── model/  — Workout entity (steps, calories, duration)
-└── ui/     — MainActivity, TrackerViewModel
-```
 
-## 📦 Download APK
-[⬇️ v1.0 Release](https://github.com/Leonov792/FitnessTrackerApp/releases/tag/v1.0)
+Подробнее — [flutter/README.md](flutter/README.md).
+
+## v1.0 — Kotlin (в корне)
+
+- **Kotlin** + Coroutines, **MVVM**, **Room**, **LiveData** + ViewBinding.
+
+## 📦 Releases
+
+- [v2.0 — Flutter](https://github.com/Leonov792/FitnessTrackerApp/releases/tag/v2.0.0)
+- [v1.0 — Kotlin APK](https://github.com/Leonov792/FitnessTrackerApp/releases/tag/v1.0)
