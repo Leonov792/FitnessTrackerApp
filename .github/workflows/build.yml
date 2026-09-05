@@ -21,6 +21,8 @@ jobs:
         with:
           gradle-version: '8.5'
       - run: gradle assembleDebug
+      - name: Rename Android APK
+        run: mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/fitness-tracker-kotlin-debug.apk
       - uses: actions/upload-artifact@v4
         with:
           name: app-debug
@@ -53,6 +55,9 @@ jobs:
       - run: flutter test
         working-directory: flutter
       - run: flutter build apk --debug
+        working-directory: flutter
+      - name: Rename Flutter APK
+        run: mv build/app/outputs/flutter-apk/app-debug.apk build/app/outputs/flutter-apk/fitness-tracker-flutter-debug.apk
         working-directory: flutter
       - uses: actions/upload-artifact@v4
         with:
